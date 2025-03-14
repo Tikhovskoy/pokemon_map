@@ -5,6 +5,7 @@ from django.shortcuts import render
 from .models import Pokemon, PokemonEntity
 from django.shortcuts import get_object_or_404
 
+
 MOSCOW_CENTER = [55.751244, 37.618423]
 DEFAULT_IMAGE_URL = (
     'https://vignette.wikia.nocookie.net/pokemon/images/6/6e/%21.png/revision'
@@ -61,9 +62,8 @@ def show_pokemon(request, pokemon_id):
 
     pokemon_entities = PokemonEntity.objects.filter(
         pokemon=pokemon,
-        appeared_at__lte=current_time
-    ).exclude(
-        disappeared_at__lte=current_time
+        appeared_at__lte=current_time,
+        disappeared_at__gt=current_time
     )
 
     for entity in pokemon_entities:
