@@ -1,7 +1,7 @@
 from django.db import models
 
 class Pokemon(models.Model):
-    title = models.CharField(max_length=200, unique=True, verbose_name="Название покемона")
+    title = models.CharField(max_length=200, unique=True, verbose_name="Название (рус.)")
     title_en = models.CharField(max_length=200, null=True, blank=True, verbose_name="Название (англ.)")
     title_jp = models.CharField(max_length=200, null=True, blank=True, verbose_name="Название (яп.)")
     image = models.ImageField(upload_to='pokemons/', null=True, blank=True, verbose_name="Изображение")
@@ -30,11 +30,11 @@ class PokemonEntity(models.Model):
     appeared_at = models.DateTimeField(null=True, blank=True, verbose_name="Появился в")
     disappeared_at = models.DateTimeField(null=True, blank=True, verbose_name="Исчез в")
 
-    level = models.IntegerField(default=1, verbose_name="Уровень")
-    health = models.IntegerField(default=100, verbose_name="Здоровье")
-    attack = models.IntegerField(default=10, verbose_name="Атака")
-    defense = models.IntegerField(default=5, verbose_name="Защита")
-    stamina = models.IntegerField(default=50, verbose_name="Выносливость")
-    
+    level = models.IntegerField(null=True, blank=True, verbose_name="Уровень")
+    health = models.IntegerField(null=True, blank=True, verbose_name="Здоровье")
+    attack = models.IntegerField(null=True, blank=True, verbose_name="Атака")
+    defense = models.IntegerField(null=True, blank=True, verbose_name="Защита")
+    stamina = models.IntegerField(null=True, blank=True, verbose_name="Выносливость")
+
     def __str__(self):
-        return f"{self.pokemon.title} (Lvl {self.level}, {round(self.latitude, 5)}, {round(self.longitude, 5)})"
+        return f"{self.pokemon.title} (Lvl {self.level if self.level else '??'}, {round(self.latitude, 5)}, {round(self.longitude, 5)})"
